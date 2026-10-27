@@ -1,0 +1,31 @@
+{
+  "name": "dsh-web-gateway-v2",
+  "version": "0.2.1",
+  "description": "DSH provider adapter for the local DeepSeek Web Gateway V2: browser identity, attachments, pseudo-tool calls and rollover-compatible envelopes.",
+  "type": "module",
+  "main": "./lib/index.js",
+  "exports": {
+    ".": "./lib/index.js",
+    "./protocol": "./lib/protocol.js",
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "lib/*.js",
+    "cordis.patch.yml",
+    "README.md"
+  ],
+  "dsh": {
+    "bundle": {
+      "patch": "./cordis.patch.yml"
+    }
+  },
+  "keywords": [
+    "dshapp-plugin",
+    "deepseek",
+    "web-gateway",
+    "attachments",
+    "tool-call"
+  ],
+  "license": "MIT",
+  "private": true
+}
