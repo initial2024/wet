@@ -34,3 +34,7 @@ jobs:
           grep -F "explicitUserCancellation" lib/index.js
           grep -F "drainReader" lib/index.js
           grep -F "client_disconnected" test.mjs
+          grep -F "'original-web-gateway'" lib/index.js
+          grep -F "'deepseek-web-v2'" lib/index.js
+          grep -F "serializeHarnessRolloverPrompt" lib/index.js
+          grep -F "rolloverPrompt" lib/protocol.js
