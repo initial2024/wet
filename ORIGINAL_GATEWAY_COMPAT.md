@@ -15,9 +15,11 @@ Audited baseline patch artifacts:
 - `assets/ai_gateway_bridge/bridge.js`
   - SHA-256: `f828989d613d366e7894d2bc635a9fa834ec440dfd9d15e61750bf9eb97b4122`
 
-The baseline already carries the bounded long-generation patch:
+The frozen baseline already carries the first bounded long-generation patch:
 - chat timeout raised from the older 200-second limit to 600 seconds;
 - DeepSeek generation-state grace: 5 seconds.
+
+The paired OmniGate add-on build then raises only the three previously verified native chat timeout immediates from 600 seconds to 3600 seconds. DSH `wet` deliberately uses a slightly larger 3660-second transport/drain ceiling so the provider bridge does not terminate before the original Gateway's own hard timeout.
 
 ## DSH provider responsibilities
 
@@ -48,7 +50,7 @@ Policy:
 1. A clearly identified user stop/cancel may terminate the transport.
 2. A generic disconnect such as `client_disconnected` is not treated as user cancellation.
 3. When the DSH consumer disappears without an explicit user cancel, the provider drains the Gateway HTTP response in the background so the original Gateway does not immediately receive a socket disconnect.
-4. Detached draining is bounded by the configured hard timeout; it is not infinite.
+4. Detached draining is bounded to 3660 seconds in the paired DSH provider; the original Gateway hard request timeout is 3600 seconds. This is intentionally finite.
 5. Conversation rollover/new-chat is a separate mechanism and must only be triggered by explicit provider-side conversation/context-limit evidence. Silence, long reasoning, temporary no-token periods and network jitter are not rollover evidence.
 
 ## Add-on responsibilities
