@@ -1,6 +1,6 @@
 # DSH Web Gateway V2 adapter
 
-Registers provider `deepseek-web-v2` and sends DSH requests to the local browser gateway at `127.0.0.1:1601`.
+Registers provider `deepseek-web-v2` and connects DSH to the original AI Gateway core. v0.4.0 auto-discovers the local Gateway, preferring `127.0.0.1:1601` and falling back to `127.0.0.1:8787`.
 
 Features:
 - keeps the logged-in DeepSeek web identity; no DeepSeek API key is required;
@@ -46,4 +46,47 @@ Changes:
 
 Recommended pair:
 - dsh-web-gateway-v2 0.3.1
+- dsh-web-relay-toolcall-compat 0.8.0
+
+
+## v0.4.0 original-core integration
+
+This release changes the integration boundary rather than rewriting the working AI Gateway.
+
+### Local transport
+
+The adapter now probes, in order:
+
+1. `http://127.0.0.1:1601/v1/chat/completions` — original AI Gateway;
+2. `http://127.0.0.1:8787/v1/chat/completions` — compatibility fallback.
+
+The selected endpoint is cached briefly and re-probed after transport/path failures.
+
+If no API key is configured and the selected endpoint is loopback, the provider sends a non-empty local compatibility credential automatically. This satisfies clients/gateways that require an API-key field without exposing a public credential.
+
+### Models
+
+The same DSH provider now exposes the original Gateway model ids:
+
+- `deepseek-chat`
+- `chatgpt-web`
+- `grok-web-fast`
+- `glm-web-flash`
+
+The original Gateway remains responsible for the actual webpage/provider selection and page automation.
+
+### Do not randomly stop active replies
+
+The DSH request AbortSignal is no longer wired directly to the local Gateway socket.
+
+A generic disconnect such as `client_disconnected`, UI replacement, or transient client loss does **not** immediately tear down a live webpage generation. If the DSH consumer disappears without an explicit user-cancel reason, the provider drains the Gateway SSE response in the background so the original Gateway can finish normally.
+
+Only a clearly identified user stop/cancel is allowed to abort immediately. Detached draining and the request itself remain bounded by a hard timeout; this is not an infinite background task.
+
+Conversation-limit rollover is separate: silence, long reasoning, temporary no-token periods, or network jitter must never be interpreted as evidence that a new conversation is required.
+
+See `ORIGINAL_GATEWAY_COMPAT.md` for the frozen-core hashes and integration contract.
+
+Recommended pair:
+- dsh-web-gateway-v2 0.4.0
 - dsh-web-relay-toolcall-compat 0.8.0
