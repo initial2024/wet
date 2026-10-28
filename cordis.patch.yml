@@ -3,7 +3,14 @@
       name: 'dsh-web-gateway-v2'
       config:
         provider: deepseek-web-v2
-        endpoint: 'http://127.0.0.1:1601/v1/chat/completions'
+        endpoint: auto
+        endpointCandidates:
+          - 'http://127.0.0.1:1601/v1/chat/completions'
+          - 'http://127.0.0.1:8787/v1/chat/completions'
         model: deepseek-chat
         maxAttachmentBytes: 20971520
         maxSingleAttachmentBytes: 16777216
+        endpointCacheMs: 30000
+        endpointProbeTimeoutMs: 900
+        hardRequestTimeoutMs: 660000
+        detachedDrainMs: 660000
