@@ -12,5 +12,5 @@
         maxSingleAttachmentBytes: 16777216
         endpointCacheMs: 30000
         endpointProbeTimeoutMs: 900
-        hardRequestTimeoutMs: 660000
-        detachedDrainMs: 660000
+        hardRequestTimeoutMs: 3660000
+        detachedDrainMs: 3660000
