@@ -1,7 +1,7 @@
 {
   "name": "dsh-web-gateway-v2",
-  "version": "0.3.0",
-  "description": "DSH provider adapter for the local DeepSeek Web Gateway V2: browser identity, attachments, pseudo-tool calls and rollover-compatible envelopes.",
+  "version": "0.3.1",
+  "description": "DSH provider adapter for the local DeepSeek Web Gateway V2 with native-tool-first prompting and relay fallback compatibility.",
   "type": "module",
   "main": "./lib/index.js",
   "exports": {
