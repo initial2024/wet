@@ -109,3 +109,18 @@ Existing sessions/presets using either id can continue using the same four model
 - DSH `totalTokens` is always supplied when provider counts are available, satisfying the current Turn Usage exactness contract.
 - Prompt cache counts are separated from uncached input instead of being double-counted.
 - If a private/LAN relay omits usage entirely, the adapter emits a deterministic local token estimate rather than a misleading hard zero. Provider-reported counts always take precedence.
+
+
+## v0.4.1 token accounting fallback
+
+Some Web/LAN Gateway streams omit provider token usage or return an all-zero placeholder even after a non-empty model response. DSH then displayed `0 tokens`.
+
+v0.4.1 behavior:
+
+- non-zero provider-reported usage remains authoritative;
+- all-zero/missing Web usage falls back to the same fixed-density rule used by DSH token-meter: approximately 4 UTF-16 characters per token;
+- both visible/reasoning output and native tool-call name/argument output contribute to the fallback output count;
+- `totalTokens` is always emitted with the fallback;
+- the fallback is an estimate, not DeepSeek billing usage.
+
+This prevents a real Web response from being presented as zero usage while keeping provider counts preferred whenever they are actually available.
