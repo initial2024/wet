@@ -28,3 +28,22 @@ The provider now owns first-line recovery for DeepSeek Web textual tool envelope
 - A truly malformed whole envelope becomes terminal failure code `WEB_TOOL_PROTOCOL_MALFORMED` rather than leaked assistant markup.
 - The provider retry policy includes `WEB_TOOL_PROTOCOL_MALFORMED`; the shipped Web composition's `dsh-llm-retry` can therefore re-run the failed model step in the same turn without persisting malformed partial output.
 - Bounded retry policy remains normal mode with five retries and the standard transient codes plus the new malformed-tool-protocol code.
+
+
+## v0.3.1 native-tool loop stabilization
+
+This release fixes a post-tool-result failure mode observed on Android DSH where valid tools executed, but the next model step repeatedly emitted malformed textual tool protocol and exhausted retries with `PI_AI_ERROR`.
+
+Changes:
+
+- Provider-native tool/function calls are now the only model-facing tool protocol when tools are available.
+- The prompt no longer contains literal legacy, tagged-JSON, DSML, XML, or other textual tool-call examples.
+- Historical assistant tool-call blocks are used only to map call IDs to tool names; they are no longer serialized back into prompt text.
+- Tool results remain visible to the next model step, including ordinary execution failures such as EACCES or command-not-found.
+- Internal `web_relay_compat_feedback` remains registered for the compatibility layer but is hidden from the upstream model's provider tool list.
+- Malformed textual protocol retry budget is reduced from five retries to two; the fallback parser remains enabled.
+- A failed tool result is not itself treated as a malformed model response.
+
+Recommended pair:
+- dsh-web-gateway-v2 0.3.1
+- dsh-web-relay-toolcall-compat 0.8.0
