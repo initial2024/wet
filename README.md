@@ -100,3 +100,12 @@ For migration compatibility, v0.4.0 registers both provider ids against the same
 - `original-web-gateway`
 
 Existing sessions/presets using either id can continue using the same four model ids without a provider-id migration.
+
+
+## v0.3.2 LAN token accounting
+
+- Streaming requests now ask OpenAI-compatible LAN gateways for `stream_options.include_usage=true`.
+- Provider usage accepts `prompt_tokens/completion_tokens`, `input_tokens/output_tokens`, camelCase variants, cache-detail buckets, reasoning tokens, and exact provider totals.
+- DSH `totalTokens` is always supplied when provider counts are available, satisfying the current Turn Usage exactness contract.
+- Prompt cache counts are separated from uncached input instead of being double-counted.
+- If a private/LAN relay omits usage entirely, the adapter emits a deterministic local token estimate rather than a misleading hard zero. Provider-reported counts always take precedence.
