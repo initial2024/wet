@@ -90,3 +90,13 @@ See `ORIGINAL_GATEWAY_COMPAT.md` for the frozen-core hashes and integration cont
 Recommended pair:
 - dsh-web-gateway-v2 0.4.0
 - dsh-web-relay-toolcall-compat 0.8.0
+
+
+### Provider aliases
+
+For migration compatibility, v0.4.0 registers both provider ids against the same adapter:
+
+- `deepseek-web-v2`
+- `original-web-gateway`
+
+Existing sessions/presets using either id can continue using the same four model ids without a provider-id migration.
