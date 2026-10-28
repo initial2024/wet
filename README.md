@@ -1,3 +1,10 @@
+### 0.4.5
+
+- Keeps the 0.4.4/0.4.1 runtime implementation byte-for-byte unchanged.
+- Does not register any global `llm/stream` usage wrapper.
+- The paired Android v1.2.6 build handles cross-provider all-zero Turn usage only after a completed Turn, at the presentation layer, and marks the result as an estimate.
+- Provider-reported usage and the adapter-local Web Gateway fallback remain authoritative.
+
 ### 0.4.4
 
 - Startup-safety rollback: removes the 0.4.2/0.4.3 global llm/stream usage wrapper entirely.
