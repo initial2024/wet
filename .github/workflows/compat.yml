@@ -38,3 +38,6 @@ jobs:
           grep -F "'deepseek-web-v2'" lib/index.js
           grep -F "serializeHarnessRolloverPrompt" lib/index.js
           grep -F "rolloverPrompt" lib/protocol.js
+          grep -F "3_660_000" lib/index.js
+          grep -F "hardRequestTimeoutMs: 3660000" cordis.patch.yml
+          grep -F "detachedDrainMs: 3660000" cordis.patch.yml
