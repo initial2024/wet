@@ -1,7 +1,7 @@
 {
   "name": "dsh-web-gateway-v2",
-  "version": "0.4.4",
-  "description": "DSH provider adapter for the original AI Gateway core with startup-safe adapter-local token fallback, auto endpoint discovery, multi-provider models, attachments, and native-tool-first compatibility.",
+  "version": "0.4.5",
+  "description": "DSH provider adapter for the original AI Gateway core with startup-safe adapter-local token fallback; cross-provider zero-token presentation fallback is owned by the paired Android UI, not a global model-stream wrapper.",
   "type": "module",
   "main": "./lib/index.js",
   "exports": {
