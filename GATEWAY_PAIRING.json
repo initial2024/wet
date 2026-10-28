@@ -1,0 +1,46 @@
+{
+  "contract": "original-ai-gateway-dsh/v1",
+  "providerPlugin": {
+    "name": "dsh-web-gateway-v2",
+    "version": "0.4.0",
+    "providerId": "deepseek-web-v2"
+  },
+  "gateway": {
+    "preferredLocalEndpoint": "http://127.0.0.1:1601/v1/chat/completions",
+    "fallbackLocalEndpoint": "http://127.0.0.1:8787/v1/chat/completions",
+    "models": [
+      "deepseek-chat",
+      "chatgpt-web",
+      "grok-web-fast",
+      "glm-web-flash"
+    ],
+    "attachmentEnvelope": "DSH_WEB_RELAY_V2_ATTACHMENT_ENVELOPE",
+    "requiresNonEmptyLocalApiKey": true,
+    "defaultLocalCompatibilityKey": "dsh-local"
+  },
+  "generationProtection": {
+    "genericDisconnectCancels": false,
+    "explicitUserCancelMayAbort": true,
+    "detachedDrainMs": 660000,
+    "hardRequestTimeoutMs": 660000,
+    "rolloverRequiresExplicitProviderLimitEvidence": true
+  },
+  "recommendedCompanions": {
+    "toolCompat": {
+      "repository": "initial2024/ck",
+      "version": "0.8.0"
+    },
+    "qaPreset": {
+      "repository": "initial2024/cs",
+      "version": "1.1.0"
+    },
+    "browserHandoff": {
+      "repository": "initial2024/webs",
+      "version": "0.2.1"
+    },
+    "statusUi": {
+      "repository": "initial2024/jc",
+      "version": "0.2.0"
+    }
+  }
+}
