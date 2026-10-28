@@ -1,3 +1,10 @@
+### 0.4.4
+
+- Startup-safety rollback: removes the 0.4.2/0.4.3 global llm/stream usage wrapper entirely.
+- Restores lib/index.js byte-for-byte to the known 0.4.1 implementation.
+- Keeps the adapter-local non-zero token fallback already present in 0.4.1.
+- Goal: restore normal DSH plugin loading first; any cross-provider token accounting must be solved outside the global startup path.
+
 ### 0.4.3
 
 - Makes the global successful-turn usage fallback fail-open: token accounting can no longer take the LLM gateway down.
