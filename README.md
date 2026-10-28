@@ -1,3 +1,9 @@
+### 0.4.3
+
+- Makes the global successful-turn usage fallback fail-open: token accounting can no longer take the LLM gateway down.
+- Removes full prompt/tool-schema serialization from the global hook. Input estimation now projects only plain message/system text and tool-call text, so circular/non-JSON tool schemas are never stringified.
+- Positive provider usage remains authoritative; failed/aborted/cancelled attempts still receive no synthetic usage.
+
 ### 0.4.2
 
 - Adds a global successful-turn usage guard: if the active route finishes successfully but reports only zero/missing usage, emit one deterministic local estimate immediately before the terminal finish chunk.
