@@ -1,0 +1,36 @@
+name: DSH ↔ Original AI Gateway compatibility
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  compat:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Syntax
+        run: |
+          node --check lib/index.js
+          node --check lib/protocol.js
+          node --check lib/parser.js
+          node --check lib/transport.js
+
+      - name: Transport regression tests
+        run: node test.mjs
+
+      - name: Integration contract gates
+        run: |
+          grep -F '"version": "0.4.0"' package.json
+          grep -F "127.0.0.1:1601/v1/chat/completions" lib/transport.js
+          grep -F "127.0.0.1:8787/v1/chat/completions" lib/transport.js
+          grep -F "deepseek-chat" lib/transport.js
+          grep -F "chatgpt-web" lib/transport.js
+          grep -F "grok-web-fast" lib/transport.js
+          grep -F "glm-web-flash" lib/transport.js
+          grep -F "Bearer dsh-local" lib/transport.js
+          grep -F "explicitUserCancellation" lib/index.js
+          grep -F "drainReader" lib/index.js
+          grep -F "client_disconnected" test.mjs
