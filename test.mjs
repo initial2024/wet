@@ -6,6 +6,11 @@ import {
   explicitUserCancellation,
   modelCatalog,
 } from './lib/transport.js';
+import {
+  decodeRelayEnvelope,
+  encodeRelayEnvelope,
+  serializeHarnessRolloverPrompt,
+} from './lib/protocol.js';
 
 {
   const values = endpointCandidates({ endpoint: 'auto' });
@@ -74,3 +79,37 @@ assert.equal(
 }
 
 console.log('wet transport tests: PASS');
+
+
+{
+  const prompt = serializeHarnessRolloverPrompt({
+    system: 'SYSTEM_RULE',
+    tools: [{ name: 'browser_open', description: 'open a page' }],
+    messages: [
+      { role: 'user', content: [{ type: 'text', text: 'old user context' }] },
+      { role: 'assistant', content: [{ type: 'text', text: 'partial work already done' }] },
+      { role: 'user', content: [
+        { type: 'text', text: 'continue this task' },
+        { type: 'image', attachment: { attachmentId: 'img-1', name: 'photo.png' } },
+      ] },
+    ],
+  });
+  assert.match(prompt, /OmniGate 自动续接交接/);
+  assert.match(prompt, /SYSTEM_RULE/);
+  assert.match(prompt, /continue this task/);
+  assert.match(prompt, /photo\.png/);
+  assert.doesNotMatch(prompt, /base64/i);
+}
+
+{
+  const encoded = encodeRelayEnvelope(
+    'full prompt',
+    [{ id: 'a', name: 'x.pdf', mime: 'application/pdf', current: true, data: 'YWJj' }],
+    'compact rollover',
+  );
+  const decoded = decodeRelayEnvelope(encoded);
+  assert.equal(decoded.v, 2);
+  assert.equal(decoded.prompt, 'full prompt');
+  assert.equal(decoded.rolloverPrompt, 'compact rollover');
+  assert.equal(decoded.attachments[0].name, 'x.pdf');
+}
