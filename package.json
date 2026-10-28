@@ -1,7 +1,7 @@
 {
   "name": "dsh-web-gateway-v2",
-  "version": "0.4.1",
-  "description": "DSH provider adapter for the original AI Gateway core with protected generation, non-zero token usage fallback, auto endpoint discovery, multi-provider models, attachments, and native-tool-first compatibility.",
+  "version": "0.4.2",
+  "description": "DSH provider adapter for the original AI Gateway core with protected generation, global successful-turn non-zero usage fallback, auto endpoint discovery, multi-provider models, attachments, and native-tool-first compatibility.",
   "type": "module",
   "main": "./lib/index.js",
   "exports": {
