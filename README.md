@@ -1,3 +1,9 @@
+### 0.4.2
+
+- Adds a global successful-turn usage guard: if the active route finishes successfully but reports only zero/missing usage, emit one deterministic local estimate immediately before the terminal finish chunk.
+- Positive provider usage is never overwritten; failed/aborted/cancelled attempts are never given synthetic usage.
+- This also covers LAN routes whose actual route.provider is not deepseek-web-v2, while preserving the existing adapter-specific 0.4.1 accounting path.
+
 # DSH Web Gateway V2 adapter
 
 Registers provider `deepseek-web-v2` and connects DSH to the original AI Gateway core. v0.4.0 auto-discovers the local Gateway, preferring `127.0.0.1:1601` and falling back to `127.0.0.1:8787`.
