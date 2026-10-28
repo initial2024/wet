@@ -1,12 +1,13 @@
 {
   "name": "dsh-web-gateway-v2",
-  "version": "0.3.1",
-  "description": "DSH provider adapter for the local DeepSeek Web Gateway V2 with native-tool-first prompting and relay fallback compatibility.",
+  "version": "0.4.0",
+  "description": "DSH provider adapter for the original AI Gateway core with protected generation, auto endpoint discovery, multi-provider models, attachments, and native-tool-first compatibility.",
   "type": "module",
   "main": "./lib/index.js",
   "exports": {
     ".": "./lib/index.js",
     "./protocol": "./lib/protocol.js",
+    "./transport": "./lib/transport.js",
     "./package.json": "./package.json"
   },
   "files": [
