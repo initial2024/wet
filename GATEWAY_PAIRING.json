@@ -3,7 +3,12 @@
   "providerPlugin": {
     "name": "dsh-web-gateway-v2",
     "version": "0.4.0",
-    "providerId": "deepseek-web-v2"
+    "providerId": "deepseek-web-v2",
+    "aliases": [
+      "deepseek-web-v2",
+      "original-web-gateway"
+    ],
+    "commit": "4eafc9a5d394eae0602236ce722e744114db5c3c"
   },
   "gateway": {
     "preferredLocalEndpoint": "http://127.0.0.1:1601/v1/chat/completions",
@@ -16,13 +21,16 @@
     ],
     "attachmentEnvelope": "DSH_WEB_RELAY_V2_ATTACHMENT_ENVELOPE",
     "requiresNonEmptyLocalApiKey": true,
-    "defaultLocalCompatibilityKey": "dsh-local"
+    "defaultLocalCompatibilityKey": "dsh-local",
+    "originalCoreHardTimeoutMs": 3600000,
+    "originalCorePort": 1601,
+    "fallbackCompatibilityPort": 8787
   },
   "generationProtection": {
     "genericDisconnectCancels": false,
     "explicitUserCancelMayAbort": true,
-    "detachedDrainMs": 660000,
-    "hardRequestTimeoutMs": 660000,
+    "detachedDrainMs": 3660000,
+    "hardRequestTimeoutMs": 3660000,
     "rolloverRequiresExplicitProviderLimitEvidence": true
   },
   "recommendedCompanions": {
