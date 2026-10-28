@@ -8,7 +8,7 @@
       "deepseek-web-v2",
       "original-web-gateway"
     ],
-    "commit": "4eafc9a5d394eae0602236ce722e744114db5c3c"
+    "runtimeMinimumCommit": "9c22f0443848524c23c7f9597cffca23307beb65"
   },
   "gateway": {
     "preferredLocalEndpoint": "http://127.0.0.1:1601/v1/chat/completions",
@@ -36,19 +36,23 @@
   "recommendedCompanions": {
     "toolCompat": {
       "repository": "initial2024/ck",
-      "version": "0.8.0"
+      "version": "0.8.0",
+      "commit": "26f075b626ebad3cd2fcbb8375e5effd0912254e"
     },
     "qaPreset": {
       "repository": "initial2024/cs",
-      "version": "1.1.0"
+      "version": "1.1.0",
+      "commit": "2db92ccf031fafe4b6d43fe7192144689ce4eb27"
     },
     "browserHandoff": {
       "repository": "initial2024/webs",
-      "version": "0.2.1"
+      "version": "0.2.1",
+      "commit": "922ce89b550cf800f42161aaa886727d3933f985"
     },
     "statusUi": {
       "repository": "initial2024/jc",
-      "version": "0.2.0"
+      "version": "0.2.0",
+      "commit": "853340326aec2d23a233ef13a1251897318b6b21"
     }
   }
 }
